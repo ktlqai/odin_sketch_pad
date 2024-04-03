@@ -1,0 +1,98 @@
+<html>
+    <head>
+        <title>Odin Sketch Pad</title>
+
+        <style>
+
+            .square {
+                border: 1px solid blue;
+            }
+
+            .row {
+                display: flex;
+                justify-content: center;
+            }
+
+        </style>
+    </head>
+    <body>
+        <button id="ask_for_grids">Input grids size</button>
+        <div id="container">
+
+        </div>
+
+        <script>
+
+            const btn = document.querySelector("#ask_for_grids");
+            btn.addEventListener("click", () => {
+                let cols = prompt('How many cols you want?');
+                let rows = prompt('How many rows you want?');
+
+                cols = parseInt(cols);
+                rows = parseInt(rows);
+                
+                if (cols > 100) {
+                    alert('Maximum cols is 100');
+
+                    return;
+                }
+                
+                if (rows > 100) {
+                    alert('Maximum rows is 100');
+
+                    return;
+                }
+
+                // Remove child elements in container
+                const container = document.querySelector("#container");
+
+                container.innerHTML = '';
+
+                createGrids(cols, rows);
+            });
+
+            createGrids(16, 16);
+
+            function createGrids(cols, rows) {
+                const container = document.querySelector("#container");
+
+                for (let i = 0; i < rows; i++) {
+                    const row = document.createElement("div");
+
+                    row.classList.add("row");
+
+                    for (let j = 0; j < cols; j++) {
+
+                        //const square = document.createElement("button");
+                        const square = document.createElement("div");
+
+                        square.classList.add("square");
+
+                        let width = Math.floor(960/cols) - 2;
+                        let height = Math.floor(550/rows) - 2;
+                        let edge = width < height ? width : height;
+
+                        edge += 'px';
+
+                        square.style.width = edge;
+                        square.style.height = edge;
+
+                        square.addEventListener("mouseover", () => {
+                            square.style.backgroundColor = 'blue';
+                        });
+
+                        /*square.addEventListener("mouseout", () => {
+                            square.style.backgroundColor = '';
+                        });*/
+
+                        row.appendChild(square);
+                    
+                    }
+
+                    container.appendChild(row);
+                }
+            }
+            
+        </script>
+    </body>
+</html>
